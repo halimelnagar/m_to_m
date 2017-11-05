@@ -10,14 +10,28 @@
   <%= @project.description %>
 </p>
 
-<p><% @project.systems.each do |i| %>
-   <ul>
-     <li>
-       <%= i.name %>         
-     </li>
-   </ul>
- <% end %>
+<p>
+	<h1>Impacted</h1>
+	<% @project.systems.each do |i| %>
+	<ul>
+	 <li>
+	   <%= i.name %>         
+	 </li>
+	</ul>
+	<% end %>
+</p>
 
+<p>
+	<% if @project.tasks.any? %>
+		<h1>Tasks</h1>
+		<% @project.tasks.each do |t| %>
+		<ul>
+		 <li>
+		   <%= t.name %>         
+		 </li>
+		</ul>
+		<% end %>
+	<% end %>
 </p>
 
 <%= link_to 'Edit', edit_project_path(@project) %> |
