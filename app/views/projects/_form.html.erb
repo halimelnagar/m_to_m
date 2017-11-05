@@ -30,6 +30,16 @@
   <% end %>
 </div>
 
+  <div class="field">
+    <%= f.label "Phases" %><br />
+    <%= f.collection_check_boxes :phase_ids, Phase.all, :id, :name do |p| %>
+      <div class="collection-check-box">
+        <%= p.check_box %>
+        <%= p.label %>
+      </div>
+    <% end %>
+  </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>

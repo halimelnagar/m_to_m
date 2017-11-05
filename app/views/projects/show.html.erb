@@ -34,5 +34,18 @@
 	<% end %>
 </p>
 
+<p>
+	<% if @project.phases.order('sequence').any? %>
+		<h1>Phases</h1>
+		<% @project.phases.each do |t| %>
+		<ul>
+		 <li>
+		   <%= t.name %>         
+		 </li>
+		</ul>
+		<% end %>
+	<% end %>
+</p>
+
 <%= link_to 'Edit', edit_project_path(@project) %> |
 <%= link_to 'Back', projects_path %>
