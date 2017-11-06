@@ -5,5 +5,17 @@
   <%= @system.name %>
 </p>
 
+<p>
+  <% if @system.teams.any? %>
+    <h1>Teams</h1>
+    <% @system.teams.each do |t| %>
+    <ul>
+      <li><%= t.name %></li>
+    </ul>
+       
+    <% end %>
+  <% end %>
+</p>
+
 <%= link_to 'Edit', edit_system_path(@system) %> |
 <%= link_to 'Back', systems_path %>

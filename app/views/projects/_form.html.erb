@@ -40,15 +40,17 @@
     <% end %>
   </div>
 
-  <div class="field">
-    <%= f.label "Tasks" %><br />
-    <%= f.collection_check_boxes :task_ids, @project.tasks, :status, :name do |t| %>
-      <div class="collection-check-box">
-        <%= t.check_box %>
-        <%= t.label %>
-      </div>
-    <% end %>
-  </div>
+  <% if @project.tasks.any? %>
+    <div class="field">
+      <%= f.label "Tasks" %><br />
+      <%= f.collection_check_boxes :task_ids, @project.tasks, :status, :name do |t| %>
+        <div class="collection-check-box">
+          <%= t.check_box %>
+          <%= t.label %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
 
   <div class="actions">
     <%= f.submit %>

@@ -7,10 +7,14 @@ class Project < ActiveRecord::Base
 	after_update :update_tasks
 	
 
-	has_many :impacted_systems, dependent: :destroy
+	has_many :impacted_systems, dependent: :destroy, inverse_of: :project
 	has_many :systems, through: :impacted_systems
 	has_many :tasks, through: :impacted_systems, dependent: :destroy
 	has_and_belongs_to_many :phases, inverse_of: :projects
+
+  validates :phases, presence: true
+  validates :systems, presence: true
+  
   	private 
   		def populate_tasks
   			Rails.logger.debug 'halim - start'

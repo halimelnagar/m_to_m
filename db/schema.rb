@@ -11,11 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171105164939) do
+ActiveRecord::Schema.define(version: 20171106130242) do
 
   create_table "Phases_Projects", id: false, force: :cascade do |t|
     t.integer "phase_id",   null: false
     t.integer "project_id", null: false
+  end
+
+  create_table "Systems_Teams", id: false, force: :cascade do |t|
+    t.integer "system_id", null: false
+    t.integer "team_id",   null: false
   end
 
   create_table "impacted_systems", force: :cascade do |t|

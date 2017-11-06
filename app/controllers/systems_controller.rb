@@ -69,6 +69,6 @@ class SystemsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def system_params
-      params.require(:system).permit(:name)
+      params.require(:system).permit(:name, team_ids:[])
     end
 end

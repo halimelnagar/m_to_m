@@ -1,5 +1,5 @@
 class ImpactedSystem < ActiveRecord::Base
-	belongs_to :project
+	belongs_to :project, inverse_of: :impacted_systems
 	belongs_to :system
 	has_many :tasks
 
