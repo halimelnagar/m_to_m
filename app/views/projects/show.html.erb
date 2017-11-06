@@ -27,6 +27,7 @@
 		<% @project.tasks.each do |t| %>
 		<ul>
 		 <li>
+		 	<%= check_box_tag "Status",t.id,t.status%>
 		   <%= t.name %>         
 		 </li>
 		</ul>
@@ -34,18 +35,20 @@
 	<% end %>
 </p>
 
-<p>
+<div class="field">
 	<% if @project.phases.order('sequence').any? %>
-		<h1>Phases</h1>
+		<h2>Phases</h2>
 		<% @project.phases.each do |t| %>
 		<ul>
 		 <li>
+		 	
 		   <%= t.name %>         
 		 </li>
 		</ul>
 		<% end %>
 	<% end %>
-</p>
+</div>
 
+ 
 <%= link_to 'Edit', edit_project_path(@project) %> |
 <%= link_to 'Back', projects_path %>
