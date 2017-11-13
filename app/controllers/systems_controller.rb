@@ -28,7 +28,7 @@ class SystemsController < ApplicationController
 
     respond_to do |format|
       if @system.save
-        format.html { redirect_to @system, notice: 'System was successfully created.' }
+        format.html { redirect_to @system, notice: @system.name+' was successfully created.' }
         format.json { render :show, status: :created, location: @system }
       else
         format.html { render :new }

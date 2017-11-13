@@ -1,7 +1,7 @@
 class ImpactedSystem < ActiveRecord::Base
-	belongs_to :project, inverse_of: :impacted_systems
+	belongs_to :project
 	belongs_to :system
-	has_many :tasks
+	has_many :tasks, inverse_of: :impacted_system
 
 	# before_update :populate_tasks
 	# before_save :populate_tasks

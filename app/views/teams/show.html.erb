@@ -15,6 +15,21 @@
   <%= @team.email %>
 </p>
 
+<p>
+
+  <% if @team.tasks.any? %>
+    <h1>Tasks</h1>
+    <% @team.tasks.each do |t| %>
+    <ul>
+     <li>
+      <%= check_box_tag "Status",t.id,t.status%>
+       <%= t.name %>         
+     </li>
+    </ul>
+    <% end %>
+  <% end %>
+</p>
+
 <%= link_to 'Edit', edit_team_path(@team) %> | 
 <%= link_to 'Create New Team', new_team_path %> | 
 <%= link_to 'Back', teams_path %>
