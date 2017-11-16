@@ -3,7 +3,7 @@ class Team < ActiveRecord::Base
   has_many :systems, through: :system_team_phases
   has_many :phases, through: :system_team_phases
   
-  # has_many :tasks, through: :system_team_phases
+  has_many :tasks, through: :system_team_phases
   # has_many :systems_teams, inverse_of: :team
   # has_and_belongs_to_many :systems, inverse_of: :teams
 

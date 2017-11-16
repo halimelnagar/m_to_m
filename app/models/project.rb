@@ -3,7 +3,8 @@ class Project < ActiveRecord::Base
 	require 'pp'
 	
 	before_update :populate_tasks
-	before_save :populate_tasks
+  after_create :populate_tasks
+	# before_save :populate_tasks
 	# after_update :update_tasks
   
   belongs_to :type
@@ -77,23 +78,25 @@ class Project < ActiveRecord::Base
       task = nil
       if p.phase_level.name == 'Project'
         task = Task.where(project: self, name: p.name).first if self.persisted?
-        task ||= Task.new(name: p.name, phase_id: p.id, status: false)
-        self.tasks << task
+        task ||= Task.new(name: p.name, phase_id: p.id, status: false)        
       else #### it is System level
         self.impacted_systems.each do |is|
-          Rails.logger.debug 'IS - '+is.id.to_s
 
-          task = Task.where(project: self, system_team_phase: SystemTeamPhase.find_by(system: is.system , phase: p),
-              impacted_system: is,name: is.system.name + ' - ' + p.name).first  if self.persisted?
+            Rails.logger.debug 'IS - '+is.id.to_s
+
+            task = Task.where(project: self, system_team_phase: SystemTeamPhase.find_by(system: is.system , phase: p),
+                impacted_system: is,name: is.system.name + ' - ' + p.name).first  if self.persisted?
+            
+            task ||= Task.create(
+                  system_team_phase: SystemTeamPhase.find_by(system: is.system , phase: p),
+                  impacted_system: is,
+                  name: is.system.name + ' - ' + p.name,
+                  status: false,
+                  phase_id: p.id, System_id: is.system_id)          
           
-          task ||= Task.create(
-                system_team_phase: SystemTeamPhase.find_by(system: is.system , phase: p),
-                impacted_system: is,
-                name: is.system.name + ' - ' + p.name,
-                status: false,
-                phase_id: p.id, System_id: is.system_id)
-          self.tasks << task
-        end          
+        end
+
+        self.tasks << task if task != nil
       end
     end      
     Rails.logger.debug this_method_name + ' end'

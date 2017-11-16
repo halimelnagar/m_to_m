@@ -14,22 +14,33 @@
   <strong>Email:</strong>
   <%= @team.email %>
 </p>
-
-<p>
-
+<div class="row">
   <% if @team.tasks.any? %>
-    <h1>Tasks</h1>
-    <% @team.tasks.each do |t| %>
-    <ul>
-     <li>
-      <%= check_box_tag "Status",t.id,t.status%>
-       <%= t.project.smo_id %> | <%= t.project.name %> | <%= t.name %>         
-     </li>
-    </ul>
-    <% end %>
-  <% end %>
-</p>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Project Id</th>
+          <th>Project Name</th>
+          <th>Project Priority</th>
+          <th>Task Name</th>
+          <th>Status</th>
+        </tr>
+      </thead>
 
+      <tbody>
+        <% @team.tasks.each do |t| %>
+          <tr>
+            <td><%= t.project.smo_id %></td>
+            <td><%= t.project.name %></td>
+            <td><%= t.project.priority.name %></td>
+            <td><%= t.name %> </td>
+            <td><%= check_box_tag "Status",t.id,t.status%></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
+</div>
 <%= link_to 'Edit', edit_team_path(@team) %> | 
 <%= link_to 'Create New Team', new_team_path %> | 
 <%= link_to 'Back', teams_path %>
