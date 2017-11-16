@@ -11,7 +11,7 @@ class Team < ActiveRecord::Base
   # has_many :open_tasks, -> { where status: true }, through: :systems, class_name:"Task" 
   # has_many :systems_teams, inverse_of: :team
   # has_many :systems, through: :systems_teams
-  accepts_nested_attributes_for :open_tasks
+  # accepts_nested_attributes_for :open_tasks
   
   def tasks
     Task.joins(:system_team_phase).where(system_team_phases: {team_id: self.id})    

@@ -63,6 +63,23 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def search
+    # Project.search(params[:search_param])
+    if params[:search_param]
+      @projects = Project.search(params[:search_param])  
+      render partial: 'lookup'
+      # Rails.logger.debug @project.name    
+      # return @project
+    end
+    
+    # if @project
+    #   #render json: @stock
+    #   render partial: 'lookup'
+    # else
+    #   render status: :not_found, nothing: true
+    # end    
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_project
@@ -71,6 +88,6 @@ class ProjectsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
-      params.require(:project).permit(:name, :description, system_ids:[], phase_ids:[])
+      params.require(:project).permit(:smo_id, :name, :description, :priority_id, :complexity_id, :type_id, system_ids:[], phase_ids:[])
     end
 end

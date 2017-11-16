@@ -1,0 +1,39 @@
+<% if @projects && @projects.size > 0 %>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>SMO Id</th>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Priority</th>
+        <th>Complexity</th>
+        <th>Description</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @projects.each do |project| %>
+        <tr>
+          <td><%= project.smo_id %></td>
+          <td><%= project.name %></td>
+          <% if project.type%>
+            <td><%= project.type.name %></td>
+          <% end %>
+          <% if project.priority %>
+            <td><%= project.priority.name %></td>
+          <%end %>
+          <% if project.complexity %>
+            <td><%= project.complexity.name %></td>
+          <%end %>
+          <td><%= project.description %></td>
+          <td><%= link_to 'Show', project, class:"btn btn-primary btn-xs" %></td>
+          <td><%= link_to 'Edit', edit_project_path(project), class:"btn btn-primary btn-xs" %></td>
+          <td><%= link_to 'Delete', project, method: :delete, 
+                                            data: { confirm: 'Are you sure?' },
+                                            :class => "btn btn-xs btn-danger" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

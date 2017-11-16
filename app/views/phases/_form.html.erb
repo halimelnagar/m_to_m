@@ -19,6 +19,10 @@
     <%= f.label :sequence %><br>
     <%= f.number_field :sequence %>
   </div>
+  <div class="field">
+      <%= f.label :phase_level_id %><br>
+      <%= f.collection_select :phase_level_id, PhaseLevel.all, :id, :name %>
+    </div>
   <div class="actions">
     <%= f.submit %>
   </div>

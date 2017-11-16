@@ -1,0 +1,21 @@
+<div id="project-lookup">
+  <h3>Search for projects</h3>
+  <%= form_tag projects_search_path, remote: true, method: :get, id: 'project-lookup-form' do %>
+  <div class="form-group row no-padding text-center col-md-12">
+    <div class="col-md-10">
+      <%= text_field_tag :search_param, params[:search_param], placeholder: "SMO ID or Project Title", autofocus: true,
+                                                          class: 'form-control search-box input-lg' %>
+    </div>
+    <div class="col-md-2">
+      <%= button_tag(type: :submit, class: "btn btn-lg btn-success") do %>
+        <i class="fa fa-search"></i> Search
+      <% end %>
+    </div>
+  </div>
+  <% end %>
+  <%= render 'common/spinner' %>
+  
+  <%= render 'list' %>
+
+  <div id="project-lookup-errors"></div>
+</div>

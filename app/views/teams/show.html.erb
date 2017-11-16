@@ -23,7 +23,7 @@
     <ul>
      <li>
       <%= check_box_tag "Status",t.id,t.status%>
-       <%= t.name %>         
+       <%= t.project.smo_id %> | <%= t.project.name %> | <%= t.name %>         
      </li>
     </ul>
     <% end %>

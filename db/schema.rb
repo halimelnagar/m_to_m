@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171109142004) do
+ActiveRecord::Schema.define(version: 20171115125846) do
 
   create_table "Phases_Projects", id: false, force: :cascade do |t|
     t.integer "phase_id",   null: false
@@ -23,14 +23,35 @@ ActiveRecord::Schema.define(version: 20171109142004) do
     t.integer "team_id",   null: false
   end
 
+  create_table "complexities", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "impacted_systems", force: :cascade do |t|
     t.integer "project_id"
     t.integer "system_id"
   end
 
+  create_table "phase_levels", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "phases", force: :cascade do |t|
     t.string   "name"
     t.integer  "sequence"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.integer  "phase_level_id"
+  end
+
+  add_index "phases", ["phase_level_id"], name: "index_phases_on_phase_level_id"
+
+  create_table "priorities", force: :cascade do |t|
+    t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -48,9 +69,18 @@ ActiveRecord::Schema.define(version: 20171109142004) do
   create_table "projects", force: :cascade do |t|
     t.string   "name"
     t.text     "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.integer  "smo_id"
+    t.integer  "type_id"
+    t.integer  "complexity_id"
+    t.integer  "priority_id"
   end
+
+  add_index "projects", ["complexity_id"], name: "index_projects_on_complexity_id"
+  add_index "projects", ["priority_id"], name: "index_projects_on_priority_id"
+  add_index "projects", ["smo_id"], name: "index_projects_on_smo_id", unique: true
+  add_index "projects", ["type_id"], name: "index_projects_on_type_id"
 
   create_table "system_team_phases", force: :cascade do |t|
     t.integer  "system_id"
@@ -74,8 +104,14 @@ ActiveRecord::Schema.define(version: 20171109142004) do
     t.integer "impacted_system_id"
     t.boolean "status"
     t.integer "system_team_phase_id"
+    t.integer "project_id"
+    t.integer "System_id"
+    t.integer "phase_id"
   end
 
+  add_index "tasks", ["System_id"], name: "index_tasks_on_System_id"
+  add_index "tasks", ["phase_id"], name: "index_tasks_on_phase_id"
+  add_index "tasks", ["project_id"], name: "index_tasks_on_project_id"
   add_index "tasks", ["system_team_phase_id"], name: "index_tasks_on_system_team_phase_id"
 
   create_table "teams", force: :cascade do |t|
@@ -87,5 +123,29 @@ ActiveRecord::Schema.define(version: 20171109142004) do
   end
 
   add_index "teams", ["email"], name: "index_teams_on_email", unique: true
+
+  create_table "types", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+  end
+
+  add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 
 end
