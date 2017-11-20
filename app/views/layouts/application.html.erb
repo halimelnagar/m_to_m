@@ -41,18 +41,14 @@
     <%= render 'layouts/navigation' %>
     
     <div class="container">
-      <div class="row">
-        <div class="col-lg-12">
-          <%= bootstrap_flash %>
-          <%= yield %>
-        </div>
+      <div class="row col-lg-12">
+        <%= bootstrap_flash %>
+        <%= yield %>      
       </div><!--/row-->
-
-      <footer>
-        <p>&copy; Company 2017</p>
-      </footer>
-
     </div> <!-- /container -->
-
+    <footer>
+      <p>&copy; Company 2017</p>
+    </footer>
+      
   </body>
 </html>

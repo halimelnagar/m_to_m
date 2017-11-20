@@ -1,54 +1,50 @@
-<p id="notice"><%= notice %></p>
+<div class="row">
+  <div class="col-xs-3 well v-well">
+    <h3>Project Information</h3>
+    <p>
+      <strong>SMO ID:</strong>
+      <%= @project.smo_id %>
+    </p>
+    <p>
+      <strong>Name:</strong>
+      <%= @project.name %>
+    </p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @project.name %>
-</p>
+    <p>
+      <strong>Description:</strong>
+      <%= @project.description %>
+    </p>
+  </div>
 
-<p>
-  <strong>Description:</strong>
-  <%= @project.description %>
-</p>
+  <div class="col-xs-3   well v-well left-margin">
+    <h3>Impacted Systems</h3>
+      <% @project.systems.each do |i| %>
+      <ul>
+       <li>
+         <%= i.name %>         
+       </li>
+      </ul>
+      <% end %>
+  </div>
 
-<p>
-	<h1>Impacted</h1>
-	<% @project.systems.each do |i| %>
-	<ul>
-	 <li>
-	   <%= i.name %>         
-	 </li>
-	</ul>
-	<% end %>
-</p>
-
-<p>
-	<% if @project.tasks.any? %>
-		<h1>Tasks</h1>
-		<% @project.tasks.each do |t| %>
-		<ul>
-		 <li>
-		 	<%= check_box_tag "Status",t.id,t.status%>
-		   <%= t.name %>         
-		 </li>
-		</ul>
-		<% end %>
-	<% end %>
-</p>
-
-<div class="field">
-	<% if @project.phases.order('sequence').any? %>
-		<h2>Phases</h2>
-		<% @project.phases.each do |t| %>
-		<ul>
-		 <li>
-		 	
-		   <%= t.name %>         
-		 </li>
-		</ul>
-		<% end %>
-	<% end %>
+  <div class="col-xs-3 well v-well left-margin">
+    <% if @project.phases.order('sequence').any? %>
+      <h3>Phases</h3>
+      <% @project.phases.each do |t| %>
+      <ul>
+       <li>
+        
+         <%= t.name %>         
+       </li>
+      </ul>
+      <% end %>
+    <% end %>
+  </div>
 </div>
 
- 
-<%= link_to 'Edit', edit_project_path(@project) %> |
-<%= link_to 'Back', projects_path %>
+<div class="row">
+  <%= link_to 'View Tasks', project_tasks_path(@project.id), class: "btn btn-xs  btn-primary" %> |
+  <%= link_to 'Edit Project', edit_project_path(@project), class: "btn btn-xs  btn-primary" %> |
+  <%= link_to 'Back to project List', projects_path, class: "btn btn-xs  btn-primary" %>
+</div> 
+

@@ -2,7 +2,7 @@
 
 <h1>Listing Phase Levels</h1>
 
-<table>
+<table  class="table table-striped">
   <thead>
     <tr>
       <th>Name</th>
@@ -14,9 +14,9 @@
     <% @phase_levels.each do |phase_level| %>
       <tr>
         <td><%= phase_level.name %></td>
-        <td><%= link_to 'Show', phase_level %></td>
-        <td><%= link_to 'Edit', edit_phase_level_path(phase_level) %></td>
-        <td><%= link_to 'Destroy', phase_level, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', phase_level, class: "btn btn-xs  btn-primary" %></td>
+        <td><%= link_to 'Edit', edit_phase_level_path(phase_level), class: "btn btn-xs  btn-primary" %></td>
+        <td><%= link_to 'Destroy', phase_level, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-xs  btn-danger" %></td>
       </tr>
     <% end %>
   </tbody>

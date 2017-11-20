@@ -1,0 +1,28 @@
+<div class="row col-lg-12 well">
+
+  SMO Id: <%= @project.smo_id %><br/>
+  Title: <%= @project.name %><br/>
+
+  <% if @tasks.any? %>
+    
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Task Name</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @tasks.each do |t| %>
+            <tr>
+              <td><%= t.name %> </td>
+              <td><%= check_box_tag "Status",t.id,t.status%></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+   
+  <% end %>
+
+</div>

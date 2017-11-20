@@ -14,9 +14,9 @@
     <% @systems.each do |system| %>
       <tr>
         <td><%= system.name %></td>
-        <td><%= link_to 'Show', system %></td>
-        <td><%= link_to 'Edit', edit_system_path(system) %></td>
-        <td><%= link_to 'Destroy', system, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', system, class: "btn btn-xs  btn-primary" %></td>
+        <td><%= link_to 'Edit', edit_system_path(system), class: "btn btn-xs  btn-primary" %></td>
+        <td><%= link_to 'Destroy', system, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-xs  btn-danger" %></td>
       </tr>
     <% end %>
   </tbody>
@@ -24,4 +24,4 @@
 
 <br>
 
-<%= link_to 'New System', new_system_path %>
+<%= link_to 'New System', new_system_path, class: "btn btn-xs  btn-primary" %>

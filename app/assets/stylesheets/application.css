@@ -14,3 +14,10 @@
  *= require_tree .
  *= require_self
  */
+.v-well{
+  min-height: 450;
+}
+
+.left-padding{
+  left-padding: 15px;
+}

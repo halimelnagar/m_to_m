@@ -18,9 +18,9 @@
         <td><%= phase.name %></td>
         <td><%= phase.sequence %></td>
         <td><%= phase.phase_level.name %></td>
-        <td><%= link_to 'Show', phase %></td>
-        <td><%= link_to 'Edit', edit_phase_path(phase) %></td>
-        <td><%= link_to 'Destroy', phase, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', phase, class: "btn btn-xs  btn-primary" %></td>
+        <td><%= link_to 'Edit', edit_phase_path(phase), class: "btn btn-xs  btn-primary" %></td>
+        <td><%= link_to 'Destroy', phase, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-xs  btn-danger" %></td>
       </tr>
     <% end %>
   </tbody>
@@ -28,4 +28,4 @@
 
 <br>
 
-<%= link_to 'New Phase', new_phase_path %>
+<%= link_to 'New Phase', new_phase_path, class: "btn btn-xs  btn-primary" %>
