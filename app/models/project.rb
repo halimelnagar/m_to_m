@@ -2,8 +2,10 @@ class Project < ActiveRecord::Base
 	
 	require 'pp'
 	
-	before_update :populate_tasks
-  after_create :populate_tasks
+	# before_update :populate_tasks
+  after_save :populate_tasks
+  # after_save :populate_tasks_for_new_project
+
 	# before_save :populate_tasks
 	# after_update :update_tasks
   
@@ -69,34 +71,43 @@ class Project < ActiveRecord::Base
         caller[0] =~ /`([^']*)'/ and $1
     end
 
+  def populate_tasks_for_new_project
+    Task.create_tasks(self)
+    Rails.logger.debug self.tasks.size
+    self.tasks.each do |t|
+      Rails.logger.debug t.attributes
+    end
+    # self.save;
+    
+  end
+
   def populate_tasks
     Rails.logger.debug this_method_name + ' start'
     self.tasks.where('impacted_system_id not in (?)', self.impacted_systems.map(&:id)).destroy_all
     self.tasks.where('phase_id not in (?)', self.phases.map(&:id)).destroy_all
     self.phases.each do |p|
       Rails.logger.debug 'Phase - '+p.name
-      task = nil
+      puts p.attributes
+      
       if p.phase_level.name == 'Project'
-        task = Task.where(project: self, name: p.name).first if self.persisted?
-        task ||= Task.new(name: p.name, phase_id: p.id, status: false)        
+        task = nil
+        task = Task.where(project: self, name: p.name).first
+        task ||= Task.new(name: p.name, phase_id: p.id, status: false)
+        self.tasks << task if task != nil        
       else #### it is System level
         self.impacted_systems.each do |is|
-
-            Rails.logger.debug 'IS - '+is.id.to_s
-
-            task = Task.where(project: self, system_team_phase: SystemTeamPhase.find_by(system: is.system , phase: p),
-                impacted_system: is,name: is.system.name + ' - ' + p.name).first  if self.persisted?
-            
-            task ||= Task.create(
-                  system_team_phase: SystemTeamPhase.find_by(system: is.system , phase: p),
-                  impacted_system: is,
-                  name: is.system.name + ' - ' + p.name,
-                  status: false,
-                  phase_id: p.id, System_id: is.system_id)          
+          puts is.attributes
+          task = Task.where(project: self, system_team_phase: SystemTeamPhase.find_by(system: is.system , phase: p),
+              impacted_system: is,name: is.system.name + ' - ' + p.name).first
           
+          task ||= Task.create(
+                system_team_phase: SystemTeamPhase.find_by(system: is.system , phase: p),
+                impacted_system: is,
+                name: is.system.name + ' - ' + p.name,
+                status: false,
+                phase_id: p.id, System_id: is.system_id)          
+          self.tasks << task
         end
-
-        self.tasks << task if task != nil
       end
     end      
     Rails.logger.debug this_method_name + ' end'

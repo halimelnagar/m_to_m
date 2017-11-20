@@ -69,8 +69,8 @@ ActiveRecord::Schema.define(version: 20171115125846) do
   create_table "projects", force: :cascade do |t|
     t.string   "name"
     t.text     "description"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at" #,    null: false
+    t.datetime "updated_at"#,    null: false
     t.integer  "smo_id"
     t.integer  "type_id"
     t.integer  "complexity_id"
