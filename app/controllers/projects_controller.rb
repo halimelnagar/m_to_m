@@ -16,7 +16,7 @@ class ProjectsController < ApplicationController
   def new
     @project = Project.new
     @project.system_ids = System.all.map(&:id)
-    @project.phase_ids = Phase.all.map(&:id)
+    # @project.phase_ids = Phase.all.map(&:id)
   end
 
   # GET /projects/1/edit
